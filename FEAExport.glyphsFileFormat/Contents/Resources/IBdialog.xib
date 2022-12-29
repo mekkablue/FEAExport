@@ -26,7 +26,11 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <binding destination="gEz-I4-vNS" name="value" keyPath="values.com.mekkablue.ExportFeatures.expandTokens" id="7xt-6F-PTb"/>
+                        <binding destination="gEz-I4-vNS" name="value" keyPath="values.com.mekkablue.ExportFeatures.expandTokens" id="7hW-yA-78d">
+                            <dictionary key="options">
+                                <bool key="NSConditionallySetsEnabled" value="NO"/>
+                            </dictionary>
+                        </binding>
                     </connections>
                 </button>
                 <button toolTip="If inactive features/classes should be included or not" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="9ad-G8-V6L">

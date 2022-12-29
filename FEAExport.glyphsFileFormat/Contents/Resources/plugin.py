@@ -67,6 +67,7 @@ class FEAExport(FileFormatPlugin):
 			'en': 'Export fea feature file',
 			'de': 'fea-Datei exportieren',
 			}))
+		self.checkboxExpandTokens.setEnabled_(False)
 		self.checkboxExpandTokens.setTitle_(Glyphs.localize({
 			'en': 'Expand tokens',
 			'de': 'Token ersetzen',
