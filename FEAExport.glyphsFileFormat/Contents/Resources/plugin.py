@@ -22,10 +22,7 @@ from GlyphsApp.plugins import *
 import codecs
 from os import path
 
-@objc.python_method
-def saveFileInLocation(content="", fileName="font.ps", filePath="~/Desktop"):
-	saveFileLocation = "%s/%s" % (filePath, fileName)
-	saveFileLocation = saveFileLocation.replace( "//", "/" )
+def saveFileInLocation(content, saveFileLocation):
 	content=codecs.encode(content, encoding='utf-8')
 	content=codecs.decode(content, encoding='ascii', errors='ignore')
 	with codecs.open(saveFileLocation, "w", encoding="ascii", errors="ignore") as thisFile:
@@ -34,7 +31,6 @@ def saveFileInLocation(content="", fileName="font.ps", filePath="~/Desktop"):
 		thisFile.close()
 	return True
 
-@objc.python_method
 def commentOut(code):
 	lines = code.splitlines()
 	for i in range(len(lines)):
@@ -42,8 +38,10 @@ def commentOut(code):
 	return "\n".join(lines)
 
 class FEAExport(FileFormatPlugin):
+
 	expandTokensPrefKey = "com.mekkablue.ExportFeatures.expandTokens"
 	includeInactivePrefKey = "com.mekkablue.ExportFeatures.includeInactive"
+	exportGPOSPrefKey = "com.mekkablue.ExportFeatures.includeGPOS"
 
 	# Definitions of IBOutlets
 	# The NSView object from the User Interface. Keep this here!
@@ -82,16 +80,20 @@ class FEAExport(FileFormatPlugin):
 		self.toolbarIcon.setTemplate_(True)
 
 	@objc.python_method
-	def export(self, font):
-		# Ask for export destination and write the file:
-		title = "Choose export destination"
-		exportFolder = GetFolder(message=title, allowsMultipleSelection=False, path=None)
-		if not exportFolder:
-			return (False, 'No folder chosen.')
+	def exportWithGPOS(self, font, exportFilePath):
+		ExporterClass = NSClassFromString("GSExportInstanceOperation")
+		Exporter = ExporterClass.new()
+		
+		Exporter.setFont_(font)
+		Exporter.setInstance_(GSInstance())
+		result = Exporter.writeFeaFile_error_(exportFilePath, None)
+		if not result[0]:
+			return (False, 'Error writing file ‘%s’.' % result[1].localizedDescription())
 
-		expandTokens = Glyphs.defaults[self.expandTokensPrefKey]
-		includeInactive = Glyphs.defaults[self.includeInactivePrefKey]
+		return (True, 'Features exported to: ‘%s’.' % path.basename(exportFilePath))
 
+	@objc.python_method
+	def exportManualFeautes(self, font, includeInactive, exportFilePath):
 		feaPieces = []
 
 		feaPieces.append("# CLASSES\n")
@@ -125,20 +127,34 @@ class FEAExport(FileFormatPlugin):
 		# file content:
 		feaText = "\n".join(feaPieces)
 
-		# file name:
+		# save dialog
+		saveFileInLocation(feaText, exportFilePath)
+
+		return (True, 'Features exported to: ‘%s’.' % path.basename(exportFilePath))
+		
+
+	@objc.python_method
+	def export(self, font):
+		# Ask for export destination and write the file:
+		title = "Choose export destination"
+		
 		if font.filepath:
 			fileName = font.filepath.lastPathComponent().stringByDeletingDotSuffix()
 		else:
 			fileName = font.familyName
 
-		# save dialog
-		saveFileInLocation(
-			content=feaText,
-			fileName="%s.fea" % fileName,
-			filePath=exportFolder,
-		)
+		exportFilePath = GetSaveFile(message=title, ProposedFileName=fileName, filetypes=["fea"])
+		if not exportFilePath:
+			return (False, 'No folder chosen.')
 
-		return (True, 'FEA file exported in ‘%s’.' % path.basename(exportFolder))
+		# expandTokens = Glyphs.boolDefaults[self.expandTokensPrefKey]
+		includeInactive = Glyphs.boolDefaults[self.includeInactivePrefKey]
+		exportGPOS = Glyphs.boolDefaults[self.exportGPOSPrefKey]
+		
+		if exportGPOS:
+			return self.exportWithGPOS(font, exportFilePath)
+		else:
+			return self.exportManualFeautes(font, includeInactive, exportFilePath)
 
 
 	@objc.python_method
