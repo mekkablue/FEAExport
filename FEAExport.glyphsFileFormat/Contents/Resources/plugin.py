@@ -62,10 +62,10 @@ class FEAExport(FileFormatPlugin):
 			})
 		self.icon = 'ExportIcon'
 		self.toolbarPosition = 100
-		
+
 		# Load .nib dialog (with .extension)
 		self.loadNib('IBdialog', __file__)
-		
+
 	@objc.python_method
 	def start(self):
 		# Init user preferences if not existent and set default value
@@ -92,7 +92,7 @@ class FEAExport(FileFormatPlugin):
 		
 		if exportFolder:
 			feaPieces = []
-			
+
 			feaPieces.append("# CLASSES\n")
 			for c in font.classes:
 				if c.active or includeInactive:
@@ -102,7 +102,7 @@ class FEAExport(FileFormatPlugin):
 						classCode = commentOut(classCode)
 					classCode += "\n"
 					feaPieces.append(classCode)
-				
+
 			feaPieces.append("\n\n# PREFIXES\n")
 			for p in font.featurePrefixes:
 				if p.active or includeInactive:
@@ -111,32 +111,32 @@ class FEAExport(FileFormatPlugin):
 						prefixCode = commentOut(prefixCode)
 					prefixCode += "\n"
 					feaPieces.append(prefixCode)
-				
+
 			feaPieces.append("\n\n# FEATURES")
 			for f in font.features:
 				if f.active or includeInactive:
-					featureCode = "feature %s {\n%s\n};" % (f.name, f.code.strip()) 
+					featureCode = "feature %s {\n%s\n};" % (f.name, f.code.strip())
 					if not f.active:
 						featureCode = commentOut(featureCode)
 					featureCode += "\n"
 					feaPieces.append(featureCode)
-			
+
 			# file content:
 			feaText = "\n".join(feaPieces)
-			
+
 			# file name:
 			if font.filepath:
 				fileName = font.filepath.lastPathComponent().stringByDeletingDotSuffix()
 			else:
 				fileName = font.familyName
-			
+
 			# save dialog
 			saveFileInLocation(
 				content=feaText,
 				fileName="%s.fea" % fileName,
 				filePath=exportFolder,
-				)
-			
+			)
+
 			return (True, 'FEA file exported in ‘%s’.' % path.basename(exportFolder))
 		else:
 			return (False, 'No folder chosen.')
