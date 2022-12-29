@@ -87,10 +87,16 @@ class FEAExport(FileFormatPlugin):
 		Exporter.setFont_(font)
 		Exporter.setInstance_(GSInstance())
 		result = Exporter.writeFeaFile_error_(exportFilePath, None)
-		if not result[0]:
-			return (False, 'Error writing file ‘%s’.' % result[1].localizedDescription())
+		# The writeFeaFile_error_ is not retuning a tuple as it should before version 3166
+		resultString = path.basename(exportFilePath)
+		if isinstance(result, tuple):
+			if not result[0]:
+				resultString = result[1].localizedDescription()
+			result = result[0]
+		if not result:
+			return (False, 'Error writing file ‘%s’.' % resultString)
 
-		return (True, 'Features exported to: ‘%s’.' % path.basename(exportFilePath))
+		return (True, 'Features exported to: ‘%s’.' % resultString)
 
 	@objc.python_method
 	def exportManualFeautes(self, font, includeInactive, exportFilePath):
