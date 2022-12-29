@@ -42,17 +42,12 @@ def commentOut(code):
 	return "\n".join(lines)
 
 class FEAExport(FileFormatPlugin):
-	prefDomain = "com.mekkablue.ExportFeatures"
-	prefDict = {
-		"expandTokens": False,
-		"includeInactive": False,
-	}
-	
+	expandTokensPrefKey = "com.mekkablue.ExportFeatures.expandTokens"
+	includeInactivePrefKey = "com.mekkablue.ExportFeatures.includeInactive"
+
 	# Definitions of IBOutlets
 	# The NSView object from the User Interface. Keep this here!
 	dialog = objc.IBOutlet()
-	checkboxExpandTokens = objc.IBOutlet()
-	checkboxIncludeInactive = objc.IBOutlet()
 
 	@objc.python_method
 	def settings(self):
@@ -69,27 +64,16 @@ class FEAExport(FileFormatPlugin):
 	@objc.python_method
 	def start(self):
 		# Init user preferences if not existent and set default value
-		for prefKey in self.prefDict.keys():
-			domain = "%s.%s" % (self.prefDomain, prefKey)
-			Glyphs.registerDefault(domain, self.prefDict[prefKey])
-			getattr(self, "checkbox"+prefKey[0].upper()+prefKey[1:]).setState_(Glyphs.defaults[domain])
-	
-	@objc.IBAction
-	def setExpandTokens_(self, sender):
-		Glyphs.defaults[self.prefDomain+".expandTokens"] = bool(sender.intValue())
-	
-	@objc.IBAction
-	def setIncludeInactive_(self, sender):
-		Glyphs.defaults[self.prefDomain+".includeInactive"] = bool(sender.intValue())
+		pass
 
 	@objc.python_method
 	def export(self, font):
 		# Ask for export destination and write the file:
 		title = "Choose export destination"
 		exportFolder = GetFolder(message=title, allowsMultipleSelection=False, path=None)
-		expandTokens = Glyphs.defaults[self.prefDomain+".expandTokens"]
-		includeInactive = Glyphs.defaults[self.prefDomain+".includeInactive"]
-		
+		expandTokens = Glyphs.defaults[expandTokensPrefKey]
+		includeInactive = Glyphs.defaults[includeInactivePrefKey]
+
 		if exportFolder:
 			feaPieces = []
 
