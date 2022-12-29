@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21225" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment version="101100" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21225"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FEAExport">
             <connections>
+                <outlet property="checkboxExpandTokens" destination="hZN-NZ-5QP" id="p1Z-Hq-iz9"/>
+                <outlet property="checkboxIncludeInactive" destination="9ad-G8-V6L" id="u5n-Yl-DK3"/>
                 <outlet property="dialog" destination="1" id="Ouh-Ly-d56"/>
+                <outlet property="titleLabel" destination="SYp-cB-Rym" id="Sd4-yb-YX6"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -15,31 +19,29 @@
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="1">
             <rect key="frame" x="0.0" y="0.0" width="353" height="102"/>
             <subviews>
-                <button toolTip="Defines, whether Unicode values should be written to the file." translatesAutoresizingMaskIntoConstraints="NO" id="hZN-NZ-5QP">
-                    <rect key="frame" x="18" y="41" width="315" height="18"/>
+                <button toolTip="If Tokes in the code should be replaced" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="hZN-NZ-5QP">
+                    <rect key="frame" x="28" y="41" width="305" height="18"/>
                     <buttonCell key="cell" type="check" title="Expand tokens" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="g8i-HJ-9pQ">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <accessibility description="Defines, whether Unicode values should be written to the file."/>
                     <connections>
                         <binding destination="gEz-I4-vNS" name="value" keyPath="values.com.mekkablue.ExportFeatures.expandTokens" id="7xt-6F-PTb"/>
                     </connections>
                 </button>
-                <button toolTip="Defines, whether Glyph width values should be written to the file." translatesAutoresizingMaskIntoConstraints="NO" id="9ad-G8-V6L">
-                    <rect key="frame" x="18" y="19" width="315" height="18"/>
+                <button toolTip="If inactive features/classes should be included or not" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="9ad-G8-V6L">
+                    <rect key="frame" x="28" y="19" width="305" height="18"/>
                     <buttonCell key="cell" type="check" title="Include inactive code" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="pZ3-gM-vvv">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <accessibility description="Defines, whether Glyph width values should be written to the file."/>
                     <connections>
                         <binding destination="gEz-I4-vNS" name="value" keyPath="values.com.mekkablue.ExportFeatures.includeInactive" id="CQl-cA-gNh"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SYp-cB-Rym">
-                    <rect key="frame" x="18" y="66" width="317" height="16"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Export fea feature file:" id="FFC-Uy-bKK">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="SYp-cB-Rym">
+                    <rect key="frame" x="28" y="66" width="307" height="16"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Export fea feature file" id="FFC-Uy-bKK">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -50,7 +52,7 @@
                 <constraint firstItem="SYp-cB-Rym" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="3pm-gn-ReW"/>
                 <constraint firstItem="hZN-NZ-5QP" firstAttribute="leading" secondItem="9ad-G8-V6L" secondAttribute="leading" id="FsN-eU-BBT"/>
                 <constraint firstItem="hZN-NZ-5QP" firstAttribute="trailing" secondItem="9ad-G8-V6L" secondAttribute="trailing" id="N5u-md-dsQ"/>
-                <constraint firstItem="SYp-cB-Rym" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="QgB-TM-jEH"/>
+                <constraint firstItem="SYp-cB-Rym" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="30" id="QgB-TM-jEH"/>
                 <constraint firstAttribute="bottom" secondItem="9ad-G8-V6L" secondAttribute="bottom" constant="20" symbolic="YES" id="Qte-NR-SdO"/>
                 <constraint firstAttribute="trailing" secondItem="SYp-cB-Rym" secondAttribute="trailing" constant="20" symbolic="YES" id="UCU-Ia-FZk"/>
                 <constraint firstItem="SYp-cB-Rym" firstAttribute="leading" secondItem="hZN-NZ-5QP" secondAttribute="leading" id="b98-Lg-6QG"/>

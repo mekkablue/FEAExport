@@ -48,18 +48,33 @@ class FEAExport(FileFormatPlugin):
 	# Definitions of IBOutlets
 	# The NSView object from the User Interface. Keep this here!
 	dialog = objc.IBOutlet()
-
+	titleLabel = objc.IBOutlet()
+	checkboxExpandTokens = objc.IBOutlet()
+	checkboxIncludeInactive = objc.IBOutlet()
 	@objc.python_method
 	def settings(self):
 		self.name = Glyphs.localize({
-			'en': 'FEA Export',
-			'de': 'Features-Export',
+			'en': 'OT Features',
+			'de': 'OT-Features',
 			})
 		self.icon = 'feaTemplate'
 		self.toolbarPosition = 100
 
 		# Load .nib dialog (with .extension)
 		self.loadNib('IBdialog', __file__)
+		print("__self.titleLabel", self.titleLabel)
+		self.titleLabel.setStringValue_(Glyphs.localize({
+			'en': 'Export fea feature file',
+			'de': 'fea-Datei exportieren',
+			}))
+		self.checkboxExpandTokens.setTitle_(Glyphs.localize({
+			'en': 'Expand tokens',
+			'de': 'Token ersetzen',
+			}))
+		self.checkboxIncludeInactive.setTitle_(Glyphs.localize({
+			'en': 'Include inactive code',
+			'de': 'Deativierte Feature/Klassen einbeziehen',
+			}))
 
 	@objc.python_method
 	def start(self):
