@@ -89,8 +89,8 @@ class FEAExport(FileFormatPlugin):
 		if not exportFolder:
 			return (False, 'No folder chosen.')
 
-		expandTokens = Glyphs.defaults[expandTokensPrefKey]
-		includeInactive = Glyphs.defaults[includeInactivePrefKey]
+		expandTokens = Glyphs.defaults[self.expandTokensPrefKey]
+		includeInactive = Glyphs.defaults[self.includeInactivePrefKey]
 
 		feaPieces = []
 
