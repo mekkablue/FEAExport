@@ -1,6 +1,6 @@
 # FEAExport
 
-Glyphs.app plug-in for exporting your font’s FeaKit features.
+Glyphs.app plug-in for exporting your font’s OpenType features.
 
 ![FEAExport](FEAExport.png)
 
