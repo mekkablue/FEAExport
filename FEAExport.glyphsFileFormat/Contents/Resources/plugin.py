@@ -62,7 +62,6 @@ class FEAExport(FileFormatPlugin):
 
 		# Load .nib dialog (with .extension)
 		self.loadNib('IBdialog', __file__)
-		print("__self.titleLabel", self.titleLabel)
 		self.titleLabel.setStringValue_(Glyphs.localize({
 			'en': 'Export fea feature file',
 			'de': 'fea-Datei exportieren',
