@@ -86,59 +86,60 @@ class FEAExport(FileFormatPlugin):
 		# Ask for export destination and write the file:
 		title = "Choose export destination"
 		exportFolder = GetFolder(message=title, allowsMultipleSelection=False, path=None)
+		if not exportFolder:
+			return (False, 'No folder chosen.')
+
 		expandTokens = Glyphs.defaults[expandTokensPrefKey]
 		includeInactive = Glyphs.defaults[includeInactivePrefKey]
 
-		if exportFolder:
-			feaPieces = []
+		feaPieces = []
 
-			feaPieces.append("# CLASSES\n")
-			for c in font.classes:
-				if c.active or includeInactive:
-					classCode = "# CLASS: %s\n" % c.name
-					classCode += "%s=[%s];" % (c.name, c.code.strip())
-					if not c.active:
-						classCode = commentOut(classCode)
-					classCode += "\n"
-					feaPieces.append(classCode)
+		feaPieces.append("# CLASSES\n")
+		for c in font.classes:
+			if c.active or includeInactive:
+				classCode = "# CLASS: %s\n" % c.name
+				classCode += "%s=[%s];" % (c.name, c.code.strip())
+				if not c.active:
+					classCode = commentOut(classCode)
+				classCode += "\n"
+				feaPieces.append(classCode)
 
-			feaPieces.append("\n\n# PREFIXES\n")
-			for p in font.featurePrefixes:
-				if p.active or includeInactive:
-					prefixCode = "# PREFIX: %s\n%s\n" % (p.name, p.code.strip())
-					if not p.active:
-						prefixCode = commentOut(prefixCode)
-					prefixCode += "\n"
-					feaPieces.append(prefixCode)
+		feaPieces.append("\n\n# PREFIXES\n")
+		for p in font.featurePrefixes:
+			if p.active or includeInactive:
+				prefixCode = "# PREFIX: %s\n%s\n" % (p.name, p.code.strip())
+				if not p.active:
+					prefixCode = commentOut(prefixCode)
+				prefixCode += "\n"
+				feaPieces.append(prefixCode)
 
-			feaPieces.append("\n\n# FEATURES")
-			for f in font.features:
-				if f.active or includeInactive:
-					featureCode = "feature %s {\n%s\n};" % (f.name, f.code.strip())
-					if not f.active:
-						featureCode = commentOut(featureCode)
-					featureCode += "\n"
-					feaPieces.append(featureCode)
+		feaPieces.append("\n\n# FEATURES")
+		for f in font.features:
+			if f.active or includeInactive:
+				featureCode = "feature %s {\n%s\n};" % (f.name, f.code.strip())
+				if not f.active:
+					featureCode = commentOut(featureCode)
+				featureCode += "\n"
+				feaPieces.append(featureCode)
 
-			# file content:
-			feaText = "\n".join(feaPieces)
+		# file content:
+		feaText = "\n".join(feaPieces)
 
-			# file name:
-			if font.filepath:
-				fileName = font.filepath.lastPathComponent().stringByDeletingDotSuffix()
-			else:
-				fileName = font.familyName
-
-			# save dialog
-			saveFileInLocation(
-				content=feaText,
-				fileName="%s.fea" % fileName,
-				filePath=exportFolder,
-			)
-
-			return (True, 'FEA file exported in ‘%s’.' % path.basename(exportFolder))
+		# file name:
+		if font.filepath:
+			fileName = font.filepath.lastPathComponent().stringByDeletingDotSuffix()
 		else:
-			return (False, 'No folder chosen.')
+			fileName = font.familyName
+
+		# save dialog
+		saveFileInLocation(
+			content=feaText,
+			fileName="%s.fea" % fileName,
+			filePath=exportFolder,
+		)
+
+		return (True, 'FEA file exported in ‘%s’.' % path.basename(exportFolder))
+
 
 	@objc.python_method
 	def __file__(self):
