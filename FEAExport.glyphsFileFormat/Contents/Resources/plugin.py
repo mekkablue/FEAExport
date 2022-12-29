@@ -55,7 +55,7 @@ class FEAExport(FileFormatPlugin):
 			'en': 'FEA Export',
 			'de': 'Features-Export',
 			})
-		self.icon = 'ExportIcon'
+		self.icon = 'feaTemplate'
 		self.toolbarPosition = 100
 
 		# Load .nib dialog (with .extension)
@@ -64,7 +64,7 @@ class FEAExport(FileFormatPlugin):
 	@objc.python_method
 	def start(self):
 		# Init user preferences if not existent and set default value
-		pass
+		self.toolbarIcon.setTemplate_(True)
 
 	@objc.python_method
 	def export(self, font):

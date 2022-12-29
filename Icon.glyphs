@@ -1,0 +1,243 @@
+{
+.appVersion = "3165";
+.formatVersion = 3;
+date = "2022-12-29 09:59:52 +0000";
+familyName = "Neue Schrift";
+fontMaster = (
+{
+id = m01;
+metricValues = (
+{
+over = 5;
+pos = 256;
+},
+{
+over = 5;
+pos = 224;
+},
+{
+over = 5;
+pos = 160;
+},
+{
+over = -5;
+},
+{
+over = -5;
+pos = -64;
+},
+{
+}
+);
+name = Regular;
+}
+);
+glyphs = (
+{
+category = Icon;
+glyphname = feaTemplate;
+lastChange = "2022-12-29 13:59:19 +0000";
+layers = (
+{
+guides = (
+{
+pos = (42,160);
+}
+);
+layerId = m01;
+shapes = (
+{
+attr = {
+strokeHeight = 25;
+strokeWidth = 20;
+};
+closed = 0;
+nodes = (
+(62,172,l),
+(115,172,l)
+);
+},
+{
+attr = {
+strokeHeight = 25;
+strokeWidth = 30;
+};
+closed = 0;
+nodes = (
+(120,237,l),
+(65,237,l),
+(65,90,l)
+);
+},
+{
+attr = {
+strokeHeight = 25;
+strokeWidth = 30;
+};
+closed = 0;
+nodes = (
+(200,237,l),
+(145,237,l),
+(145,102,l),
+(200,102,l)
+);
+},
+{
+attr = {
+strokeHeight = 25;
+strokeWidth = 20;
+};
+closed = 0;
+nodes = (
+(142,172,l),
+(195,172,l)
+);
+},
+{
+attr = {
+lineCapEnd = 3;
+lineCapStart = 3;
+strokeHeight = 24;
+strokeWidth = 20;
+};
+closed = 0;
+nodes = (
+(238,142,l),
+(282,142,l)
+);
+},
+{
+attr = {
+lineCapEnd = 4;
+lineCapStart = 4;
+strokeWidth = 25;
+};
+closed = 0;
+nodes = (
+(220,90,l),
+(265,263,l)
+);
+},
+{
+attr = {
+mask = 1;
+strokeWidth = 20;
+};
+closed = 1;
+nodes = (
+(76,97,l),
+(43,134,o),
+(30,177,o),
+(34,213,c),
+(14,213,l),
+(65,76,l)
+);
+},
+{
+closed = 1;
+nodes = (
+(121,-10,o),
+(250,15,o),
+(248,104,c),
+(245,42,o),
+(148,16,o),
+(76,97,cs),
+(43,134,o),
+(30,177,o),
+(34,213,cs),
+(44,284,o),
+(126,313,o),
+(180,269,c),
+(136,316,o),
+(53,306,o),
+(22,251,cs),
+(-6,201,o),
+(7,115,o),
+(48,70,cs)
+);
+},
+{
+attr = {
+mask = 1;
+};
+closed = 1;
+nodes = (
+(40,226,l),
+(48,249,l),
+(57,260,l),
+(40,260,l)
+);
+},
+{
+attr = {
+lineCapEnd = 4;
+lineCapStart = 4;
+strokeHeight = 15;
+strokeWidth = 30;
+};
+closed = 0;
+nodes = (
+(265,263,l),
+(310,90,l)
+);
+},
+{
+attr = {
+mask = "1";
+};
+closed = 1;
+nodes = (
+(230,250,l),
+(300,250,l),
+(300,270,l),
+(230,270,l)
+);
+}
+);
+userData = {
+com.GeorgSeifert.ImageExportSettings = {
+path = "../FEAExport.glyphsFileFormat/Contents/Resources";
+presets = (
+{
+filename = "{{{glyph.name}}}";
+format = PDF;
+name = default;
+size = 32;
+}
+);
+};
+};
+vertWidth = 320;
+width = 320;
+}
+);
+}
+);
+metrics = (
+{
+type = ascender;
+},
+{
+type = "cap height";
+},
+{
+type = "x-height";
+},
+{
+type = baseline;
+},
+{
+type = descender;
+},
+{
+type = "italic angle";
+}
+);
+settings = {
+gridLength = 10;
+gridSubDivision = 10;
+};
+unitsPerEm = 320;
+versionMajor = 1;
+versionMinor = 0;
+}
